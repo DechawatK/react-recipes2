@@ -1,7 +1,47 @@
-import React from 'react'
+import React from "react";
+import { ApolloConsumer } from "react-apollo";
+import { SEARCH_RECIPES } from "../../queries";
+import SearchItem from "./SearchItem";
 
-const Search = () => (
-    <div>Search</div>
-)
+class Search extends React.Component {
+  state = {
+    searchResult: []
+  };
 
-export default Search
+  handleChange = ({ searchRecipes }) => {
+    this.setState({
+      searchResult: searchRecipes
+    });
+  };
+
+  render() {
+    const { searchResult } = this.state;
+    return (
+      <ApolloConsumer>
+        {client => (
+          <div className="App">
+            <input
+              type="search"
+              placeholder="Search for Recipes"
+              onChange={async event => {
+                event.persist();
+                const { data } = await client.query({
+                  query: SEARCH_RECIPES,
+                  variables: { searchTerm: event.target.value }
+                });
+                this.handleChange(data);
+              }}
+            />
+            <ul>
+              {searchResult.map(recipe => (
+                <SearchItem key={recipe._id} {...recipe} />
+              ))}
+            </ul>
+          </div>
+        )}
+      </ApolloConsumer>
+    );
+  }
+}
+
+export default Search;
