@@ -1,11 +1,19 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
 
-const RecipeItem = ({_id, name, category}) => (
-    <li key={_id}>
-    <Link to={`/recipes/${_id}`}><h4>{name}</h4></Link>
-    <p><strong>{category}</strong></p>
-    </li>
-)
+const RecipeItem = ({ _id, imageUrl, name, category }) => (
+  <li
+    key={_id}
+    style={{ background: `url(${imageUrl}) center center / cover no-repeat` }}
+    className="card"
+  >
+    <span className={category}>{category}</span>
+    <div className="card-text">
+      <Link to={`/recipes/${_id}`}>
+        <h4>{name}</h4>
+      </Link>
+    </div>
+  </li>
+);
 
-export default RecipeItem
+export default RecipeItem;
