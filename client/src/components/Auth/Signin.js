@@ -26,11 +26,11 @@ class Signin extends Component {
   handleSubmit = (event, signinUser) => {
     event.preventDefault();
     signinUser().then(async ({ data }) => {
-      console.log(data);
+      // console.log(data);
       localStorage.setItem("token", data.signinUser.token);
       await this.props.refetch();
       this.clearState();
-      this.props.history.push('/')
+      this.props.history.push("/");
     });
   };
 
@@ -90,4 +90,4 @@ class Signin extends Component {
   }
 }
 
-export default withRouter(Signin) 
+export default withRouter(Signin);
