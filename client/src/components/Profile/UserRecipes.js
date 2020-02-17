@@ -7,6 +7,7 @@ import {
   GET_ALL_RECIPES,
   GET_CURRENT_USER
 } from "../../queries";
+import Spinner from "../Spinner";
 
 const handleDelete = deleteUserRecipe => {
   const confirmDelete = window.confirm(
@@ -22,7 +23,7 @@ const handleDelete = deleteUserRecipe => {
 const UserRecipes = ({ username }) => (
   <Query query={GET_USER_RECIPES} variables={{ username }}>
     {({ data, loading, error }) => {
-      if (loading) return <div>Loading</div>;
+      if (loading) return <Spinner />;
       if (error) return <div>Error</div>;
 
       // console.log(data);

@@ -20,7 +20,7 @@ import { ApolloProvider } from "react-apollo";
 import RecipePage from "./components/Recipe/RecipePage";
 
 const client = new ApolloClient({
-  uri: "https://react-apollo-recipes2.herokuapp.com/graphql",
+  uri: "http://localhost:4444/graphql",
   fetchOptions: {
     credentials: "include"
   },
@@ -35,7 +35,7 @@ const client = new ApolloClient({
   },
   onError: ({ networkError }) => {
     if (networkError) {
-      console.log("Network Error", networkError);
+      localStorage.setItem("token", "");
     }
   }
 });
